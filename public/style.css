@@ -1,0 +1,70 @@
+
+h1{
+    font-family: Arial, Helvetica, sans-serif;
+    color: aliceblue;
+}
+body{
+    background-color: rgb(53, 46, 46);
+    color: aliceblue;
+    font-family:'Courier New', Courier, monospace;
+    font-size: larger;
+    text-align: center;
+}
+li{
+    text-align: left;
+}
+form{
+    color: aliceblue;
+}
+h2{
+    color: rgb(215, 232, 248);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
+}
+button{
+    background-color: white;
+  color: black;
+  border: 2px solid #04AA6D; /* Green */
+}
+header{
+    background-color: darkgray;
+color:blue;
+}
+footer{
+    background-color: rgb(156, 154, 154);
+    color: aliceblue;
+}
+a{
+    color: rgb(69, 93, 231);
+    text-decoration: none;
+}
+a:visited{
+    color: rgb(198, 216, 235);
+}
+a:hover{
+    color: aqua;
+}
+a:active{
+    color: aquamarine;
+}
+i{
+    color: rgb(141, 218, 218);
+}
+/*der volgende style wird auf eine class namens flex-container 
+eine class wird in der styles.css immer mit einem führenden Punkt(.) dargestellt*/
+      
+        .flex-container {
+          display: flex;
+          flex-wrap: wrap;
+        }
+        
+        .flex-container > div {
+          color: black;
+            background-color: #d8d6d6;
+          width: 100%;
+          margin:10px;
+          text-align:center;
+          line-height: 75px;
+          font-size: 30px;
+        }
+     
