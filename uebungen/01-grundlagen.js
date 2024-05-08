@@ -2,7 +2,7 @@ console.log("GRUNDLAGEN");
 console.log("==========");
 
 console.log('Aufgabe 1');
-console.log('erstelle zwei Variablen namens a und b. Initialisiere mit den Werten 1 und 2.')
+console.log('erstelle zwei Variablen namens a und b. Initialisiere mit den Werten 1 und 2.');
 
 //Der Wert 1 wird zugewiesen(=) an eine Variable namens a.
 let a=1;
@@ -37,7 +37,7 @@ console.log('Aufgabe 5');
 console.log('a und b sind die Seitenlängen der Katheten eines Rechtwinkligen Dreiecks. Bestimme die Länge der Hypotenuse c.');
 
 //cQuadrat ist in Kamelhöcker-Notation geschrieben. Das heist zuerst ein Kleinbuchstabe.Verbundene Wörter beginnen groß.
-let cQuadrat=(a**2+b**2);
+let cQuadrat=(a*a+b*b);
 
 //Javascript kennt eine Bibliothek namens Math. In der Bibliothek gibt es eine Funtion namens sqrt.
 //Als Parameter in den runden Klammern erwartet sqrt die Zahl, aus der dann die Wurzel gezogen wird.
@@ -45,19 +45,31 @@ c=Math.sqrt(cQuadrat);
 console.log('Die Hypotenuse c ist '+c+' lang.');
 
 console.log('Aufgabe 6');
-console.log('Ein Kunde legt 100 Euro auf dem Sparbuch an. Jedes Jahr bekommt er 10% Zinsen. Wie viel bekommt der Kunde nach zwei Jahren ausgezahlt. Beachte den Zinseszinseffekt.')
+console.log('Ein Kunde legt 100 Euro auf dem Sparbuch an. Jedes Jahr bekommt er 10% Zinsen. Wie viel bekommt der Kunde nach zwei Jahren ausgezahlt. Beachte den Zinseszinseffekt.');
 
-let laufzeit=2
-let kapital=100;
+let laufzeit=2;
+let startkapital=100;
 let zinssatz=0.1; /*Das Komma ist zur Entwicklungszeit ein Punkt.*/
 
-let kapitalNacheinemJahr=kapital*(1+zinssatz);
+let kapitalNacheinemJahr=startkapital*(1+zinssatz);
 
-console.log('Kapital nach einem Jahr: '+kapitalNacheinemJahr +' EUR.')
+console.log('Kapital nach einem Jahr: '+kapitalNacheinemJahr +' EUR.');
 
 let kapitalNachzweiJahren=kapitalNacheinemJahr*(1+zinssatz);
 console.log('Nach zwei Jahren bekommt der Kunde '+kapitalNachzweiJahren +' EUR.');
 
-let endkapital=Math.pow((kapital*zinssatz),laufzeit);
+let endkapital=startkapital*Math.pow((1+zinssatz),laufzeit);
 
-console.log('Endkapital nach '+laufzeit' Jahren:'+endkapital +' EUR');
+console.log('Endkapital nach '+laufzeit +' Jahren:'+endkapital +' EUR');
+
+console.log('Aufgabe 67');
+console.log('Die Werte aus der vorherigen Aufgabe werden als Reihe dargestellt');
+
+let endkapitalZuBegin=startkapital;
+console.log(endkapitalZuBegin);
+
+let endkapitalNachEinemJahr=startkapital*(1+zinssatz);
+console.log(endkapitalNachEinemJahr);
+
+let endkapitalNachZweiJahren=endkapitalNachEinemJahr*(1+zinssatz);
+console.log(endkapitalNachZweiJahren);
