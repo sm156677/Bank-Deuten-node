@@ -88,8 +88,9 @@ console.log('In Aufgabe 7 wurde die Anweisung endkapital=... mehrfach wiederholt
 startkapital=100;
 endkapital=startkapital;
 zinssatz=0.1;
+laufzeit=3;
 
-for (let i=0; i<=4;i++) {
+for (let i=0; i<laufzeit;i++) {
     endkapital=endkapital*(1+zinssatz);
-    console.log(endkapital);
+    console.log("Endkapital nach Jahr "+ (i+1) + ": " + endkapital + " EUR.");
 }
