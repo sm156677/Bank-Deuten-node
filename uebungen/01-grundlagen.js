@@ -28,7 +28,7 @@ console.log('Multiplikation:'+(a*b));
 console.log('Division:'+(a/b));
 
 console.log('Aufgabe 4');
-console.log('Der Wert von c sei das ergebnis der Addition von a und b.');
+console.log('Der Wert von c sei das Ergebnis der Addition von a und b.');
 
 let c=a+b;
 console.log('Der Wert der Variable c ist:'+c);
@@ -94,3 +94,12 @@ for (let i=0; i<laufzeit;i++) {
     endkapital=endkapital*(1+zinssatz);
     console.log("Endkapital nach Jahr "+ (i+1) + ": " + endkapital + " EUR.");
 }
+
+console.log('Aufgabe 9');
+console.log('Wenn der Artikel Lebensmittel ist, dann ist die Mehrwertsteuer 7%, ansonsten 19%.');
+console.log('In Excel würde das so aussehen:=Wenn(A1="Lebensmittel";7;19)');
+
+let artikel='Handy';
+let mwstSatz= (artikel==="Lebensmittel")?7:19;
+
+console.log('Der MwstSatz für den Artikel '+artikel+' beträgt '+mwstSatz+'%');
