@@ -100,6 +100,17 @@ console.log('Wenn der Artikel Lebensmittel ist, dann ist die Mehrwertsteuer 7%, 
 console.log('In Excel würde das so aussehen:=Wenn(A1="Lebensmittel";7;19)');
 
 let artikel='Handy';
+
+// Anders als in Excel ist das einfache Gleichheitszeichen für eine Zuweisung reserviert. Für einen Vergleich muss in Javascript mit zwei oder drei Gleichheitszeichen gearbeitet werden.
+//Wie bei Excel: (Wenn Bedingung)ist gleich? dann das:sonst das;
 let mwstSatz= (artikel==="Lebensmittel")?7:19;
 
 console.log('Der MwstSatz für den Artikel '+artikel+' beträgt '+mwstSatz+'%');
+
+console.log('Aufgabe 10');
+console.log('Hausaufgabe: Eigene Aufgabe mit eigener Wenn-Funktion (if-else-Ausdruck)')
+
+let geschlecht='w';
+let anrede=(geschlecht==='w')?'Frau':'Herr';
+
+console.log('bei dem Geschlecht '+geschlecht+' ist die Anrede '+anrede);
