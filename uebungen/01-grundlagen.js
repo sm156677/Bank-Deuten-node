@@ -180,7 +180,7 @@ console.log('Bei einem Gesamtbetrag von '+gesamtbetrag+'€, beträgt der Versan
 console.log('Aufgabe 13')
 console.log('Frauen ab 18 zahlen 10€ Eintritt. Männer ab 18 zahlen 15€ Eintritt. Minderjährige zahlen 6€ Eintritt.')
 
-let geschlecht='Frau';
+ geschlecht='Frau';
 let alter=10;
 let eintritt;
 
