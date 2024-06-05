@@ -36,9 +36,9 @@ console.log('Pi beträgt: '+pi);
 
 // 2b)
 // Berechnen Sie Flächeninhalt.
-let flächeninhalt=pi*radius*radius;
+let flaecheninhalt=pi*radius*radius;
 
-console.log('Der Flächeninhalt beträgt: '+flächeninhalt+' m');
+console.log('Der Flächeninhalt beträgt: '+flaecheninhalt+' m');
 
 
 // 2c)
@@ -149,7 +149,8 @@ console.log("Aufgabe 5")
 // Erstellen Sie zusätzlich eine Variable für den Namen der Person.
 
 let m=68;
-let l=170;
+//l in Metre angeben, sonst kommt nicht das Richtige raus
+let l=1.7;
 let person= 'Hans';
 
 
@@ -161,7 +162,7 @@ console.log(m/(l*l));
 // 5c) 
 // Geben Sie den Antwortsatz nach folgendem Muster aus. Die Werte werden aus den Variablen und der vorherigen Berechnung erzeugt: "Pit hat bei einer Körpergröße von 170 cm und einem Körpergewicht von 68 kg einen BMI von 24."
 
-console.log( person +' hat bei einer Körpergröße von '+l+'cm und einem Körpergewicht von '+m+'kg einen BMI von '+BMI);
+console.log( person +' hat bei einer Körpergröße von '+l+'m und einem Körpergewicht von '+m+'kg einen BMI von '+BMI);
 
 
 // 5d - Nur Klausurschreiber
