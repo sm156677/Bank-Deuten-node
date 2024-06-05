@@ -174,4 +174,6 @@ console.log( person +' hat bei einer Körpergröße von '+l+'m und einem Körper
 // if (a > b) { console.log("A ist größer als B") }
 // if (a <= b) { console.log("A ist kleiner als B oder gleich groß") }    
 
-if(BMI>=18.5){console.log(person+' hat Normalgewicht')}if(BMI<18.5){console.log(person+' hat Untergewicht')}if(BMI>25){console.log(person+' hat Übergewicht')};
+if(BMI>=18.5){console.log(person+' hat Normalgewicht')}
+if(BMI<18.5){console.log(person+' hat Untergewicht')}
+if(BMI>25){console.log(person+' hat Übergewicht')};
