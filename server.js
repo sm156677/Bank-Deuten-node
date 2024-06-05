@@ -41,3 +41,4 @@ app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
 
 require('./uebungen/01-grundlagen.js');
+require('./klausuren/Klausur20240604.js');

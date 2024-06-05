@@ -148,9 +148,9 @@ console.log("Aufgabe 5")
 // Erstellen Sie die notwendigen Variablen und weisen Sie beispielhaft Werte zu. 
 // Erstellen Sie zusätzlich eine Variable für den Namen der Person.
 
-let m=68;
+let m=65;
 //l in Metre angeben, sonst kommt nicht das Richtige raus
-let l=1.7;
+let l=1.68;
 let person= 'Hans';
 
 
