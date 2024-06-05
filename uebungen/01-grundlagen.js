@@ -195,3 +195,19 @@ if(alter<18){
 }
 
 console.log('Bei einem alter von '+alter+' Jahren, zahlen eine Person mit Geschlecht '+geschlecht+' '+eintritt+'€.')
+
+console.log('Aufgabe 14')
+console.log('Wenn man in BWL eine 4 oder besser schreibt hat man bestanden, wenn man eine 5 oder schlechter bekommt, aber in Deutsch min. eine 4 hat man immernoch bestanden. Ist man aber in beiden schlechter als eine 4 fällt man durch');
+
+let bwl=6;
+let deutsch=5;
+
+if(bwl<=4){
+    console.log('hat bestanden');
+}
+if(bwl>=5 && deutsch<=4){
+    console.log('hat bestanden');
+}
+if(bwl>=5 && deutsch>=5){
+    console.log('durchgefallen');
+}
