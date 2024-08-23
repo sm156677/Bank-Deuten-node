@@ -29,10 +29,12 @@ button{
 header{
     background-color: darkgray;
 color:blue;
+text-align: center;
 }
 footer{
     background-color: rgb(156, 154, 154);
     color: aliceblue;
+    text-align: center;
 }
 a{
     color: rgb(69, 93, 231);
