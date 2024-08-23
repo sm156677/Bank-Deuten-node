@@ -45,3 +45,14 @@ if(alter>17 && fuehrerschein===true){       //Wenn älter 17 UND Führerschein, 
     console.log("darf fahren")
 }
 
+//Andere Lösung
+
+if(fuehrerschein){   //Führerschein ist bereits true oder false es bedarf keines Vergleichsoperators
+    if(alter===17){
+        console.log("begleitend fahren")
+    }else{
+        console.log("fahren")
+    }
+}else{
+    console.log("fahrradfahren")
+}
