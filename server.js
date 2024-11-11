@@ -17,6 +17,11 @@ const HOST = '0.0.0.0';
 
 // App
 const app = express();
+
+//Es wird der App bekanntgegeben, wo die styles zu finden sind.
+app.use(express.static('public'))
+
+
 app.get('/', (req, res) => {
 
 	// res ist die Antwort des Servers an den Browser.
@@ -29,6 +34,13 @@ app.get('/', (req, res) => {
 	res.render('index.ejs',{});
 });
 
+//wenn im Browser die Adresse.../ABG aufgerufen wird, wird der Server aufgefordert,
+//die angefrgte Seite an den Browser zurück zu geben
+//der Server arbeit dazu die Funktionh app.get('AGB')... ab.
+app.get('AGB',(req, res)=>{
+	//der Se4rver gibt die gerenderte .ejs Seite an den Browser zurück.
+	res.render('AGB.ejs',{});
+});
 
 // Mit listen() wird der Server angewiesen, auf den angegebenen HOST und PORT zu lauschen.
 
@@ -41,5 +53,7 @@ app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
 
 //mit der Funktion require, wird die Datei in den runden Klammern eingelesen.
-require('./uebungen/03-objekte.js');
-require('./uebungen/04-funktionen.js');
+
+
+//require('./uebungen/03-objekte.js');
+//require('./uebungen/04-funktionen.js');
