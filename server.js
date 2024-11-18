@@ -37,9 +37,45 @@ app.get('/', (req, res) => {
 //wenn im Browser die Adresse.../ABG aufgerufen wird, wird der Server aufgefordert,
 //die angefrgte Seite an den Browser zurück zu geben
 //der Server arbeit dazu die Funktionh app.get('AGB')... ab.
-app.get('AGB',(req, res)=>{
-	//der Se4rver gibt die gerenderte .ejs Seite an den Browser zurück.
+app.get('/AGB',(req, res)=>{
+	//der Server gibt die gerenderte .ejs Seite an den Browser zurück.
 	res.render('AGB.ejs',{});
+});
+
+app.get('/Hilfe',(req, res)=>{
+	res.render('Hilfe.ejs',{});
+});
+
+app.get('/Postfach',(req, res)=>{
+	res.render('Postfach.ejs',{});
+});
+
+app.get('/Profil',(req, res)=>{
+	res.render('Profil.ejs',{});
+});
+
+app.get('/index',(req, res)=>{
+	res.render('index.ejs',{});
+});
+
+app.get('/Kontenuebersicht',(req, res)=>{
+	res.render('Kontenuebersicht.ejs',{});
+});
+
+app.get('/ueberweisung',(req, res)=>{
+	res.render('ueberweisung.ejs',{});
+});
+
+app.get('/Geldanlegen',(req, res)=>{
+	res.render('Geldanlegen.ejs',{});
+});
+
+app.get('/Kredit',(req, res)=>{
+	res.render('Kredit.ejs',{});
+});
+
+app.get('/logout',(req, res)=>{
+	res.render('login.ejs',{});
 });
 
 // Mit listen() wird der Server angewiesen, auf den angegebenen HOST und PORT zu lauschen.
