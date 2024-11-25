@@ -78,6 +78,9 @@ app.get('/logout',(req, res)=>{
 	res.render('login.ejs',{});
 });
 
+app.post('/geldAnlegen',(req, res)=>{
+	res.render('Geldanlegen.ejs');
+});
 // Mit listen() wird der Server angewiesen, auf den angegebenen HOST und PORT zu lauschen.
 
 app.listen(PORT, HOST);

@@ -2,6 +2,7 @@
 h1{
     font-family: Arial, Helvetica, sans-serif;
     color: aliceblue;
+    text-decoration: underline;
 }
 body{
     background-color: rgb(53, 46, 46);
@@ -19,12 +20,13 @@ form{
 h2{
     color: rgb(215, 232, 248);
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    
+    font-size:larger;
 }
 button{
     background-color: white;
   color: black;
-  border: 2px solid #04AA6D; /* Green */
+  border: none;
+  font-size: 16px;
 }
 header{
     background-color: darkgray;
@@ -70,3 +72,6 @@ eine class wird in der styles.css immer mit einem führenden Punkt(.) dargestell
           font-size: 30px;
         }
      
+label{
+    font-family: Arial, Helvetica, sans-serif;
+}
