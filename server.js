@@ -67,7 +67,9 @@ app.get('/ueberweisung',(req, res)=>{
 });
 
 app.get('/Geldanlegen',(req, res)=>{
-	res.render('Geldanlegen.ejs',{});
+	res.render('Geldanlegen.ejs',{
+		Betrag: 100
+	});
 });
 
 app.get('/Kredit',(req, res)=>{
@@ -79,7 +81,7 @@ app.get('/logout',(req, res)=>{
 });
 
 app.post('/geldAnlegen',(req, res)=>{
-	res.render('Geldanlegen.ejs');
+	res.render('Geldanlegen.ejs',{});
 });
 // Mit listen() wird der Server angewiesen, auf den angegebenen HOST und PORT zu lauschen.
 
