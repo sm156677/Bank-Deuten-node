@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <img src="bank-4-48.png">
+        <i class="fa-solid fa-building-columns"></i>
         <p></p>
         <a href="Hilfe"> <button><i class="fa-solid fa-phone-volume"></i>Hilfe</button></a>
         <a href="Postfach"><i class="fa-solid fa-inbox"></i>Zum Postfach</a>
@@ -30,20 +30,21 @@
             Betrag: 
             <!--Das Eingabefeld hat den type number, womit die die eingabe von Zahlen erzwungen wird.-->
             <!--Der Name heist Betrag, der Server greift über den Namen auf das Input zu.-->
-            <input name="betrag" type="number"
+            <input name="Betrag" type="number"
             min="1" value=<%= Betrag%>>
             €
-        </label>
+    </label>
         <label for="Laufzeit"><br>
             Laufzeit:
-            <input name="laufzeit" type="number"
+            <input name="Laufzeit" type="number"
             step="1" min="1"
-            inputmode="latin">
+            inputmode="latin" value=<%= Laufzeit%>>
             Jahr/e
         </label>
         <p></p>
-        <button type="submit" formaction="geldAnlegen">Zinsen berechnen</button>
+        <button type="submit" formaction="Geldanlegen">Zinsen berechnen</button>
     </form>
+    <p><%=Meldung%></p>
 </main>
 <footer>
         <h2>Hier können sie uns finden</h2>
