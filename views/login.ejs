@@ -12,34 +12,33 @@
     <i class="fa-solid fa-building-columns"></i>
   </header>
     <h1>Wilkommen bei der Bank Deuten</h1>
-    <form action="#.ext" method="post">
+    <form  method="post">
        <label for="email oder Benutzername">Email oder Benutzername: </label>
        <input
          required
-         type = "text"
          id = "benutzername"
-         name = "benutzername"
-         inputmode = "numeric"
-         pattern = "[0-9]{5}"
+         name = "IdKunde"
+        
          placeholder = "name@gmail.com"
          title = "Benutzername" >
       </form>
-      <form action="#.ext" method="post">
-       <label for="plz"> Paswort</label>
+      <form  method="post">
+       <label for="plz"> Passwort</label>
+       <!--Type="password" maskiert die Eingabe mit Sternchen-->
        <input
          required
          type="password"
          id = "plz"
-         name = "plz"
-         inputmode = "numeric"
-         pattern = "[0-9]{5}"
+         name = "Passwort"
          placeholder = "12345"
-         title="Paswort 5-12 Zeichen" >
-         
+         title="Passwort 5-12 Zeichen"
+         maxlength="12" 
+         >
+        <p><button formaction="/login">Einloggen</button></p> 
       </form>
       <form>
-        <p></p>
-Besuchen sie gerne unsere Homepage
+        <p><%= Meldung %></p>
+Besuchen sie gerne unsere Homepage!
 <footer>
     <h2>Hier können sie uns finden</h2>
     <p></p>

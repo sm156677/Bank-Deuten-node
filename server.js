@@ -1,7 +1,18 @@
-/*---------------------------------------------------------------------------------------------
- *  Copyright (c) Microsoft Corporation. All rights reserved.
- *  Licensed under the MIT License. See License.txt in the project root for license information.
- *--------------------------------------------------------------------------------------------*/
+class Kunde {
+	constructor() {
+		this.Nachname
+		this.Vorname
+		this.Benutzername
+		this.Passwort
+	}
+}
+
+let kunde = new Kunde()
+	kunde.Nachname="Mustermann"
+	kunde.Vorname='Max'
+	kunde.Benutzername='MM'
+	kunde.Passwort='Muster'
+;
 
 'use strict';
 
@@ -92,17 +103,44 @@ app.get('/Kredit',(req, res)=>{
 	res.render('Kredit.ejs',{});
 });
 
-app.get('/logout',(req, res)=>{
-	res.render('login.ejs',{});
+app.get('/login',(req, res)=>{
+	res.render('login.ejs',{
+		Meldung:"Alles easy."
+	});
 });
 
-//Die Funktion app.post('/Geldanlegen...')wird abgearbeitet, wenn der Kunde auf dem Formular
-//den Absende-Button klickt.
+app.post('/login',(req, res)=>{
+
+	let benutzername= req.body.IdKunde;
+	console.log('login: Benutzername:'+benutzername+'.');
+	
+	
+	
+	let passwort=req.body.Passwort;
+	console.log('login: Passwort:'+passwort)
+
+let meldung=""
+	if(kunde.Benutzername==benutzername && kunde.Passwort==passwort){
+console.log('Die Zugangsdaten wurten korrekt eingegeben.')
+meldung="Die Zugangsdaten wurden korrekt eingegeben."
+	}else{
+		console.log('Die Zugangsdaten wurden nicht korrekt eingegeben.')
+		meldung="Die Zugangsdaten wurden nicht korrekt eingegeben."
+	}
+
+
+	//Es muss geprüft werden, ob der Kunde mit diesem Benutzernamen das richtige Kennwort eingegeben hat.
+
+		res.render('login.ejs',{
+			
+			Meldung:'Sie wurden erfolgreich angemeldet'
+		});
+	});
+
+
 app.post('/Geldanlegen',(req, res)=>{
 
-//Die Werte, die der Kunde im Formular angegeben hat, werden an den Server gesendet.
-//Der Wert der Variable Betrag wird aus dem body der Kundenanfrage (req) ausgelesen und zugewiesen
-//an die lokale Variable namens betrag.
+
 let betrag= req.body.Betrag;
 console.log('Geldanlegen: Gewünschter Betrag:'+betrag+'€');
 
