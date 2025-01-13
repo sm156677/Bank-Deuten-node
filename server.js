@@ -109,6 +109,25 @@ app.get('/login',(req, res)=>{
 	});
 });
 
+app.post('/Kredit', (req, res) => {
+
+	// Der Server nimmt die Werte aus dem Browserformular entgegen:
+	let zinsbetrag = req.body.Betrag;
+	let laufzeit = req.body.Laufzeit;
+	let zinssatz = req.body.Zinssatz;
+
+	// Der Rückzahlungsbetrag wird berechnet
+	let kredit = zinsbetrag * Math.pow(1+zinssatz/100,laufzeit);
+	console.log("Rückzahlungsbetrag: " + kredit + " €.")
+
+	// Die Funktion render() gibt die Werte an den Browser
+	res.render('Kredit.ejs',{
+		Laufzeit: laufzeit,
+		Zinssatz: zinssatz,		
+		Betrag: zinsbetrag,
+		Meldung: "Rückzahlungsbetrag: " + kredit + " €."
+	});
+});
 app.post('/login',(req, res)=>{
 
 	let benutzername= req.body.IdKunde;

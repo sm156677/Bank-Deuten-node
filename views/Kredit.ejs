@@ -19,7 +19,18 @@
         <a href="logout"><button><i class="fa-solid fa-right-from-bracket"></i>Logout</button></a>
     </header>
 <main>
-    Kredit beantragen.
+   <h1> Kredit beantragen.</h1>
+    <p></p>
+    <form method="post">
+        <label>Gewünschter Betrag in Euro</label></br>
+        <input type="number" min="0" name="Betrag" value=<%= Betrag %>></br>
+        <label>Gewünschter Zinssatz</label></br>
+        <input type="number" min="0" name="Zinssatz" value=<%= Zinssatz %>></br>
+        <label>Gewünschte Laufzeit</label></br>
+        <input type="number" min="0" name="Laufzeit" value=<%= Laufzeit %>></br>
+        <button type="submit" formaction="/kreditBeantragen">Kredit berechnen</button>
+    </form>
+        <p><%= Meldung %></p>
 </main>
 <footer>
         <h2>Hier können sie uns finden</h2>
