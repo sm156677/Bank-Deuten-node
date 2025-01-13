@@ -7,12 +7,29 @@ class Kunde {
 	}
 }
 
-let kunde = new Kunde()
+let kunde = new Kunde();
 	kunde.Nachname="Mustermann"
 	kunde.Vorname='Max'
 	kunde.Benutzername='MM'
 	kunde.Passwort='Muster'
 ;
+
+class Kundenberater {
+	constructor() {
+		this.Vorname
+		this.Nachname
+		this.Telefonnummer
+		this.Email
+		this.Bild
+	}
+}
+
+let kundenberater1=new Kundenberater();
+	kundenberater1.Vorname="Pit"
+	kundenberater1.Nachname="Kiff"
+	kundenberater1.Telefonnummer="012345/7890000"
+	kundenberater1.Email="p.kiff@borken-bank.de"
+	kundenberater1.Bild= <i class="fa-solid fa-user"></i>
 
 'use strict';
 
