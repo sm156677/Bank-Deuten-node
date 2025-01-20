@@ -1,19 +1,25 @@
+
+//Klassendefinition des Kunden
 class Kunde {
 	constructor() {
 		this.Nachname
 		this.Vorname
 		this.Benutzername
 		this.Passwort
+		this.istEingelogt
 	}
 }
 
+//Deklaration und instanziierung
 let kunde = new Kunde();
+//initialisierung
 	kunde.Nachname="Mustermann"
 	kunde.Vorname='Max'
 	kunde.Benutzername='MM'
 	kunde.Passwort='Muster'
+	kunde.istEingelogt=false
 ;
-
+//Klassendefinition des Kundenberaters
 class Kundenberater {
 	constructor() {
 		this.Vorname
@@ -23,13 +29,14 @@ class Kundenberater {
 		this.Bild
 	}
 }
-
+//Deklaration und instanziierung
 let kundenberater1=new Kundenberater();
+//initialisierung
 	kundenberater1.Vorname="Pit"
 	kundenberater1.Nachname="Kiff"
 	kundenberater1.Telefonnummer="012345/7890000"
 	kundenberater1.Email="p.kiff@borken-bank.de"
-	kundenberater1.Bild= <i class="fa-solid fa-user"></i>
+	kundenberater1.Bild= "png"
 
 'use strict';
 
@@ -42,9 +49,9 @@ const bodyParser=require('body-parser');
 
 // Constants
 //Die Anweisungen, werden von oben nach unten abgeaerbeitet. 
-//Der Wert 3000 wird von rechts nach links zugewiesen an die Konstante namens PORT.
+//Der Wert 3001 wird von rechts nach links zugewiesen an die Konstante namens PORT.
 //Das einfache Gleichheitszeichen lässt sich also übersetzen mit "wird zugewiesen an".
-const PORT = 3000;
+const PORT = 3001;
 //Der wert '0.0.0.0' wird zugewiesen an eine Konstante namens HOST.
 const HOST = '0.0.0.0';
 
@@ -75,37 +82,81 @@ app.get('/', (req, res) => {
 //der Server arbeit dazu die Funktionh app.get('AGB')... ab.
 app.get('/AGB',(req, res)=>{
 	//der Server gibt die gerenderte .ejs Seite an den Browser zurück.
-	res.render('AGB.ejs',{});
+	if(kunde.istEigelogt){
+		res.render('AGB.ejs',{});
+	}else{
+		res.render('login.ejs',{
+			Meldung: "Melden sie sich zuerst an."
+		});
+	}
 });
 
 app.get('/Hilfe',(req, res)=>{
-	res.render('Hilfe.ejs',{});
+	if(kunde.istEigelogt){
+		res.render('Hilfe.ejs',{});
+	}else{
+		res.render('login.ejs',{
+			Meldung: "Melden sie sich zuerst an."
+		});
+	}
 });
 
 app.get('/Postfach',(req, res)=>{
-	res.render('Postfach.ejs',{});
+	if(kunde.istEigelogt){
+		res.render('Postfach.ejs',{});
+	}else{
+		res.render('login.ejs',{
+			Meldung: "Melden sie sich zuerst an."
+		});
+	}
 });
 
 app.get('/Profil',(req, res)=>{
-	res.render('Profil.ejs',{});
+	if(kunde.istEigelogt){
+		res.render('Profil.ejs',{});
+	}else{
+		res.render('login.ejs',{
+			Meldung: "Melden sie sich zuerst an."
+		});
+	}
 });
 
 app.get('/index',(req, res)=>{
-	res.render('index.ejs',{});
+	if(kunde.istEigelogt){
+		res.render('index.ejs',{});
+	}else{
+		res.render('login.ejs',{
+			Meldung: "Melden sie sich zuerst an."
+		});
+	}
 });
 
 app.get('/Kontenuebersicht',(req, res)=>{
-	res.render('Kontenuebersicht.ejs',{});
+	if(kunde.istEigelogt){
+		res.render('Kontenuebersicht.ejs',{});
+	}else{
+		res.render('login.ejs',{
+			Meldung: "Melden sie sich zuerst an."
+		});
+	}
 });
 
 app.get('/ueberweisung',(req, res)=>{
-	res.render('ueberweisung.ejs',{});
+	if(kunde.istEigelogt){
+		res.render('ueberweisung.ejs',{});
+	}else{
+		res.render('login.ejs',{
+			Meldung: "Melden sie sich zuerst an."
+		});
+	}
 });
 
 //Die Funktion app.get('/Geldanlegen...') wird abgearbeitet, wenn der Benutzer die 
 //Seite Geldanlegen im Browser ansurft.
 app.get('/Geldanlegen',(req, res)=>{
-	//Die Serverantwort an den Browser wird gerendert an den Browser zurückgegeben.
+
+	if(kunde.istEigelogt){
+		//Die Serverantwort an den Browser wird gerendert an den Browser zurückgegeben.
 	//Dazu wird die Funktion render() aufgerufen.
 	res.render('Geldanlegen.ejs',{
 		//In der Geldanlegen.ejs gibt es die Variablen Betrag und Laufzeit.
@@ -114,16 +165,66 @@ app.get('/Geldanlegen',(req, res)=>{
 		Laufzeit: laufzeit,
 		Meldung: ''
 	});
+	}else{
+		res.render('login.ejs',{
+			Meldung: "Melden sie sich zuerst an."
+		});
+	}
 });
+	
 
 app.get('/Kredit',(req, res)=>{
-	res.render('Kredit.ejs',{});
+	if(kunde.istEigelogt){
+		res.render('Kredit.ejs',{});
+	}else{
+		res.render('login.ejs',{
+			Meldung: "Melden sie sich zuerst an."
+		});
+	}
 });
 
+
+
+//Die app.get wird abgearbeitet, wenn der Server angesurft wird
 app.get('/login',(req, res)=>{
+	kunde.istEingelogt=false;
+	console.log('kunde.istEingelogt'+kunde.istEingelogt)
 	res.render('login.ejs',{
-		Meldung:"Alles easy."
+		Meldung:"Bitte Benutzername und Kennwort eingeben."
 	});
+});
+
+//Die app.post 
+app.post('/login',(req, res)=>{
+
+	let benutzername= req.body.Benutzername;
+	console.log('login: Benutzername:'+benutzername+'.');
+	
+	
+	
+	let passwort=req.body.Passwort;
+	console.log('login: Passwort:'+passwort)
+
+let meldung=""
+	if(kunde.Benutzername==benutzername && kunde.Passwort==passwort){
+console.log('Die Zugangsdaten wurten korrekt eingegeben.')
+meldung="Die Zugangsdaten wurden korrekt eingegeben."
+kunde.istEingelogt=true;
+	}else{
+		console.log('Die Zugangsdaten wurden nicht korrekt eingegeben.')
+		meldung="Die Zugangsdaten wurden nicht korrekt eingegeben."
+		kunde.istEingelogt=false;
+	}
+});
+
+app.get('/',(req, res)=>{
+	if(kunde.istEigelogt){
+		res.render('index.ejs',{});
+	}else{
+		res.render('login.ejs',{
+			Meldung: "Melden sie sich zuerst an."
+		});
+	}
 });
 
 app.post('/Kredit', (req, res) => {
@@ -145,33 +246,10 @@ app.post('/Kredit', (req, res) => {
 		Meldung: "Rückzahlungsbetrag: " + kredit + " €."
 	});
 });
-app.post('/login',(req, res)=>{
 
-	let benutzername= req.body.IdKunde;
-	console.log('login: Benutzername:'+benutzername+'.');
+
+
 	
-	
-	
-	let passwort=req.body.Passwort;
-	console.log('login: Passwort:'+passwort)
-
-let meldung=""
-	if(kunde.Benutzername==benutzername && kunde.Passwort==passwort){
-console.log('Die Zugangsdaten wurten korrekt eingegeben.')
-meldung="Die Zugangsdaten wurden korrekt eingegeben."
-	}else{
-		console.log('Die Zugangsdaten wurden nicht korrekt eingegeben.')
-		meldung="Die Zugangsdaten wurden nicht korrekt eingegeben."
-	}
-
-
-	//Es muss geprüft werden, ob der Kunde mit diesem Benutzernamen das richtige Kennwort eingegeben hat.
-
-		res.render('login.ejs',{
-			
-			Meldung:'Sie wurden erfolgreich angemeldet'
-		});
-	});
 
 
 app.post('/Geldanlegen',(req, res)=>{
