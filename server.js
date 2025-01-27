@@ -1,4 +1,6 @@
 
+//Zum installieren von modulen npm install(cookie/cookie-parser/-g nodemon)
+
 //Klassendefinition des Kunden
 class Kunde {
 	constructor() {
@@ -6,6 +8,7 @@ class Kunde {
 		this.Vorname
 		this.Benutzername
 		this.Passwort
+		//istEingelogt ist ein boolean, diese kann nur true oder false sein.
 		this.istEingelogt
 	}
 }
@@ -47,6 +50,10 @@ const express = require('express');
 //Der Bodyparser wird im Terminal mit dem Befehl 'npm install -g body-parser' instaliert
 const bodyParser=require('body-parser');
 
+//der cookie-parser ist für die Verarbeitung der Cookies in unserer app zusatäündig.
+//mit dem cookie-parser können wir cookies auslesen, setzen und löschen.
+const cookieParser=require('cookie-parser')
+
 // Constants
 //Die Anweisungen, werden von oben nach unten abgeaerbeitet. 
 //Der Wert 3001 wird von rechts nach links zugewiesen an die Konstante namens PORT.
@@ -65,6 +72,14 @@ app.set('view engine','ejs')
 //Der Bodyparser wird in der app eingebunden.
 app.use(bodyParser.urlencoded({extended: true}))
 
+//der cookieparser wird in die app eingebunden
+//cookies können verschlüsselt im Browser abgelegt werden. Dadurch kann ein im Browser gespeichertes Kennwort nicht mehr
+//ausgelesen werden. Nur unsere app kann den verschlüsselten cookie verwenden. Dazu wird das Secret "geheim" genutzt.
+app.use(cookieParser(''))
+
+
+
+
 app.get('/', (req, res) => {
 
 	// res ist die Antwort des Servers an den Browser.
@@ -76,7 +91,42 @@ app.get('/', (req, res) => {
 	//Das res-Objekt kann mit der Funktion render() eine HTML Datei an den Browser senden.
 	res.render('index.ejs',{});
 });
+app.post('/login',(req, res)=>{
 
+	let benutzername= req.body.Benutzername;
+	console.log('login: Benutzername:'+benutzername+'.');
+	
+	
+	
+	let passwort=req.body.Passwort;
+	console.log('login: Passwort:'+passwort)
+
+let meldung=""
+	if(kunde.Benutzername==benutzername && kunde.Passwort==passwort){
+console.log('Die Zugangsdaten wurten korrekt eingegeben.')
+meldung="Die Zugangsdaten wurden korrekt eingegeben."
+//Eigenschaft istEingelogt wird auf true gesetzt
+kunde.istEingelogt=true;
+
+
+res.cookie('name','John Doe',{maxAge: 900000})
+
+	}else{
+		console.log('Die Zugangsdaten wurden nicht korrekt eingegeben.')
+		meldung="Die Zugangsdaten wurden nicht korrekt eingegeben."
+		kunde.istEingelogt=false;
+	}
+});
+
+app.get('/',(req, res)=>{
+	if(kunde.istEigelogt){
+		res.render('index.ejs',{});
+	}else{
+		res.render('login.ejs',{
+			Meldung: "Melden sie sich zuerst an."
+		});
+	}
+});
 //wenn im Browser die Adresse.../ABG aufgerufen wird, wird der Server aufgefordert,
 //die angefrgte Seite an den Browser zurück zu geben
 //der Server arbeit dazu die Funktionh app.get('AGB')... ab.
@@ -195,37 +245,7 @@ app.get('/login',(req, res)=>{
 });
 
 //Die app.post 
-app.post('/login',(req, res)=>{
 
-	let benutzername= req.body.Benutzername;
-	console.log('login: Benutzername:'+benutzername+'.');
-	
-	
-	
-	let passwort=req.body.Passwort;
-	console.log('login: Passwort:'+passwort)
-
-let meldung=""
-	if(kunde.Benutzername==benutzername && kunde.Passwort==passwort){
-console.log('Die Zugangsdaten wurten korrekt eingegeben.')
-meldung="Die Zugangsdaten wurden korrekt eingegeben."
-kunde.istEingelogt=true;
-	}else{
-		console.log('Die Zugangsdaten wurden nicht korrekt eingegeben.')
-		meldung="Die Zugangsdaten wurden nicht korrekt eingegeben."
-		kunde.istEingelogt=false;
-	}
-});
-
-app.get('/',(req, res)=>{
-	if(kunde.istEigelogt){
-		res.render('index.ejs',{});
-	}else{
-		res.render('login.ejs',{
-			Meldung: "Melden sie sich zuerst an."
-		});
-	}
-});
 
 app.post('/Kredit', (req, res) => {
 
