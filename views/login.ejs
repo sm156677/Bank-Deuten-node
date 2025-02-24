@@ -14,7 +14,9 @@
     <h1>Wilkommen bei der Bank Deuten</h1>
     
       <form  method="post">
-       <label for="plz"> Passwort</label>
+       <label for="Benutzername">Benutzerame</label>
+         <input name="Benutzername">
+        <label for="plz"> Passwort</label>
        <!--Type="password" maskiert die Eingabe mit Sternchen-->
        <input
          required
@@ -25,8 +27,7 @@
          title="Passwort 5-12 Zeichen"
          maxlength="12" 
          >
-         <label for="Benutzername">Benutzerame</label>
-         <input name="Benutzername">
+         
         <p><button formaction="/login">Einloggen</button></p> 
       </form>
         <p><%= Meldung %></p>

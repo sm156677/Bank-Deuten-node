@@ -20,7 +20,7 @@ let kunde = new Kunde();
 	kunde.Vorname='Max'
 	kunde.Benutzername='MM'
 	kunde.Passwort='Muster'
-	kunde.istEingelogt=false
+	kunde.istEingelogt= false
 ;
 //Klassendefinition des Kundenberaters
 class Kundenberater {
@@ -50,7 +50,7 @@ const express = require('express');
 //Der Bodyparser wird im Terminal mit dem Befehl 'npm install -g body-parser' instaliert
 const bodyParser=require('body-parser');
 
-//der cookie-parser ist für die Verarbeitung der Cookies in unserer app zusatäündig.
+//der cookie-parser ist für die Verarbeitung der Cookies in unserer app zusatändig.
 //mit dem cookie-parser können wir cookies auslesen, setzen und löschen.
 const cookieParser=require('cookie-parser')
 
@@ -74,11 +74,20 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 //der cookieparser wird in die app eingebunden
 //cookies können verschlüsselt im Browser abgelegt werden. Dadurch kann ein im Browser gespeichertes Kennwort nicht mehr
-//ausgelesen werden. Nur unsere app kann den verschlüsselten cookie verwenden. Dazu wird das Secret "geheim" genutzt.
+//ausgelesen werden. Nur unsere app kann den verschlüsselten cookie verwenden. Dazu wird das Secret genutzt.
 app.use(cookieParser(''))
 
+//cookies sollen wie folgt eingesetzt werden.
+//1. wenn sich der Kunde in der App anmeldet, wird ein cookie in seinem Browser gespeichert.
+//   der cookie enthält seine Kundendaten.
+//   immer,wenn der Kunde nach der Anmeldung in der App einen Button drückt, werden seine Kundendate
+//   vom Browser an den server übergeben. Der server weis dadurch, mit welchem Kunden er es zutun hat.
+//   so ermöglichen wir, dass mehrere Kunden gleichzeitig mit dem Server interagieren können.
 
+//Man kann cookies im Browser anzeigen,in dem man F12 drückt.
 
+const secretKey='mein_geheimer_schluessel';
+//app.use(cookieParser(secretKey))
 
 app.get('/', (req, res) => {
 
@@ -104,12 +113,15 @@ app.post('/login',(req, res)=>{
 let meldung=""
 	if(kunde.Benutzername==benutzername && kunde.Passwort==passwort){
 console.log('Die Zugangsdaten wurten korrekt eingegeben.')
-meldung="Die Zugangsdaten wurden korrekt eingegeben."
+meldung="Die Zugangsdaten wurden korrekt eingegeben.";
 //Eigenschaft istEingelogt wird auf true gesetzt
 kunde.istEingelogt=true;
 
-
-res.cookie('name','John Doe',{maxAge: 900000})
+//wenn der Kunde seine Credentials korekt eingegeben hat, wird sein cookie gesetzt.
+//Um das ganze Kundenobjekt im Cookie speichern zu können, wird das ganze Kundenobjekt in eine Zeichenkette umgewandelt.
+//Dazu wird die stringify-Funktion auf das JSON-Objekt aufgerufen.
+res.cookie('istAngemeldetals', JSON.stringify(kunde),{maxAge: 900000, httpOnly: true, signed:false})
+console.log('das Kundenobjekt im Cookie')
 
 	}else{
 		console.log('Die Zugangsdaten wurden nicht korrekt eingegeben.')
