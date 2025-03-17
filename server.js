@@ -1,5 +1,15 @@
 
-//Zum installieren von modulen npm install(cookie/cookie-parser/-g nodemon)
+//Zum installieren von modulen npm install(cookie/cookie-parser/-g nodemon/email-validator)
+
+const validator = require("email-validator");
+//Die Bibliotek email-validator prüft ob eine E-Mail-Adresse gültig ist. 
+//die Anforderungen an einer Email sind exakt fesstgelegt im RFC 5322.
+
+//Die Funktion validate() wird aufgerufen und bekommt als Argument eine E-Mail-Adresse übergeben.
+//Die Funktion validate() gibt den Rückgabewrt true oder false zurück.
+validator.validate("test@email.com"); // true
+
+
 
 //Klassendefinition des Kunden
 class Kunde {
@@ -10,6 +20,7 @@ class Kunde {
 		this.Passwort
 		//istEingelogt ist ein boolean, diese kann nur true oder false sein.
 		this.istEingelogt
+		this.Mail
 	}
 }
 
@@ -52,7 +63,8 @@ const bodyParser=require('body-parser');
 
 //der cookie-parser ist für die Verarbeitung der Cookies in unserer app zusatändig.
 //mit dem cookie-parser können wir cookies auslesen, setzen und löschen.
-const cookieParser=require('cookie-parser')
+const cookieParser=require('cookie-parser');
+const { render } = require("ejs");
 
 // Constants
 //Die Anweisungen, werden von oben nach unten abgeaerbeitet. 
@@ -110,7 +122,20 @@ app.post('/login',(req, res)=>{
 	let passwort=req.body.Passwort;
 	console.log('login: Passwort:'+passwort)
 
-let meldung=""
+let meldung="";
+
+ // E-Mail-Validierung
+ if (!validator.validate(benutzername)) {
+	console.log('Die eingegebene E-Mail-Adresse ist ungültig.');
+	meldung = "Die eingegebene E-Mail-Adresse ist ungültig.";
+	res.render('login.ejs', {
+		Meldung: meldung
+	});
+	return;
+}
+
+//wenn der Benutzername und das Passwort des Kunden mit den eingegebenen Daten übereinstimmen, wird die Eigenschaft istEingelogt auf true gesetzt.
+//Ansonsten wird die Eigenschaft istEingelogt auf false gesetzt.
 	if(kunde.Benutzername==benutzername && kunde.Passwort==passwort){
 console.log('Die Zugangsdaten wurten korrekt eingegeben.')
 meldung="Die Zugangsdaten wurden korrekt eingegeben.";
@@ -176,11 +201,36 @@ app.get('/Postfach',(req, res)=>{
 app.get('/Profil',(req, res)=>{
 	if(kunde.istEigelogt){
 		res.render('Profil.ejs',{});
+		Meldung:"",
+		Email: kunde.Mail
 	}else{
 		res.render('login.ejs',{
-			Meldung: "Melden sie sich zuerst an."
+			Meldung: "Melden sie sich zuerst an.",
+			Email: kunde.Mail,
 		});
 	}
+});
+
+app.post('/Profil',(req, res)=>{
+	var meldung="";
+	let email= req.body.Email;
+	//Der Wert von email wird vom Browser entgegengenmmen, sobald der Kunde sein Profil ändern will.
+
+	//Die übergebende Adresse wird in dei Validate-Funktion übergeben und geprüft.
+if(validator.validate("email")){
+	console.log('Die E-Mail-Adresse ist gültig.');
+meldung="Die E-Mail-Adresse ist gültig.";
+kunde.Mail=email;
+
+}else{
+	console.log('Die E-Mail-Adresse ist ungültig.');
+	meldung="Die E-Mail-Adresse ist ungültig.";
+}
+
+res.render('Profil.ejs',{
+	Meldung: meldung,
+	Email: kunde.Mail,
+});
 });
 
 app.get('/index',(req, res)=>{
