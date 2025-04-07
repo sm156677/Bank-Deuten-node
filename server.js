@@ -1,6 +1,8 @@
 
 //Zum installieren von modulen npm install(cookie/cookie-parser/-g nodemon/email-validator)
 
+//npm install iban-validator-js
+
 const validator = require("email-validator");
 //Die Bibliotek email-validator prüft ob eine E-Mail-Adresse gültig ist. 
 //die Anforderungen an einer Email sind exakt fesstgelegt im RFC 5322.
@@ -21,6 +23,7 @@ class Kunde {
 		//istEingelogt ist ein boolean, diese kann nur true oder false sein.
 		this.istEingelogt
 		this.Mail
+		this.Iban
 	}
 }
 
@@ -31,7 +34,7 @@ let kunde = new Kunde();
 	kunde.Vorname='Max'
 	kunde.Benutzername='MM'
 	kunde.Passwort='Muster'
-	kunde.istEingelogt= false
+	kunde.istEingelogt
 ;
 //Klassendefinition des Kundenberaters
 class Kundenberater {
@@ -101,58 +104,52 @@ app.use(cookieParser(''))
 const secretKey='mein_geheimer_schluessel';
 //app.use(cookieParser(secretKey))
 
-app.get('/', (req, res) => {
 
-	// res ist die Antwort des Servers an den Browser.
-	// send() ist die Anweisung etwas an den Browser zu senden.
-	//'Hello...' ist der Wert, der an die Anweisung send() übergeben wird
-	//res.send('Hello remote world!\n');
-
-	//das res-Objekt kann noch mehr als nur eine Zeichenkette an den Browser zu senden.
-	//Das res-Objekt kann mit der Funktion render() eine HTML Datei an den Browser senden.
-	res.render('index.ejs',{});
-});
 app.post('/login',(req, res)=>{
 
 	let benutzername= req.body.Benutzername;
 	console.log('login: Benutzername:'+benutzername+'.');
-	
-	
-	
+		
 	let passwort=req.body.Passwort;
 	console.log('login: Passwort:'+passwort)
 
-let meldung="";
+	let meldung="";
 
- // E-Mail-Validierung
- if (!validator.validate(benutzername)) {
-	console.log('Die eingegebene E-Mail-Adresse ist ungültig.');
-	meldung = "Die eingegebene E-Mail-Adresse ist ungültig.";
-	res.render('login.ejs', {
-		Meldung: meldung
-	});
-	return;
-}
 
-//wenn der Benutzername und das Passwort des Kunden mit den eingegebenen Daten übereinstimmen, wird die Eigenschaft istEingelogt auf true gesetzt.
-//Ansonsten wird die Eigenschaft istEingelogt auf false gesetzt.
+	//wenn der Benutzername und das Passwort des Kunden mit den eingegebenen Daten übereinstimmen, wird die Eigenschaft istEingelogt auf true gesetzt.
+	//Ansonsten wird die Eigenschaft istEingelogt auf false gesetzt.
 	if(kunde.Benutzername==benutzername && kunde.Passwort==passwort){
-console.log('Die Zugangsdaten wurten korrekt eingegeben.')
-meldung="Die Zugangsdaten wurden korrekt eingegeben.";
-//Eigenschaft istEingelogt wird auf true gesetzt
-kunde.istEingelogt=true;
+		console.log('Die Zugangsdaten wurten korrekt eingegeben.')
+		meldung="Die Zugangsdaten wurden korrekt eingegeben.";
+		//Eigenschaft istEingelogt wird auf true gesetzt
+		kunde.istEingelogt=true;
 
-//wenn der Kunde seine Credentials korekt eingegeben hat, wird sein cookie gesetzt.
-//Um das ganze Kundenobjekt im Cookie speichern zu können, wird das ganze Kundenobjekt in eine Zeichenkette umgewandelt.
-//Dazu wird die stringify-Funktion auf das JSON-Objekt aufgerufen.
-res.cookie('istAngemeldetals', JSON.stringify(kunde),{maxAge: 900000, httpOnly: true, signed:false})
-console.log('das Kundenobjekt im Cookie')
+		//wenn der Kunde seine Credentials korekt eingegeben hat, wird sein cookie gesetzt.
+		//Um das ganze Kundenobjekt im Cookie speichern zu können, wird das ganze Kundenobjekt in eine Zeichenkette umgewandelt.
+		//Dazu wird die stringify-Funktion auf das JSON-Objekt aufgerufen.
+		res.cookie('istAngemeldetals', JSON.stringify(kunde),{maxAge: 900000, httpOnly: true, signed:false})
+		console.log('das Kundenobjekt im Cookie')
+
+		res.render('index.ejs',{});
 
 	}else{
 		console.log('Die Zugangsdaten wurden nicht korrekt eingegeben.')
 		meldung="Die Zugangsdaten wurden nicht korrekt eingegeben."
 		kunde.istEingelogt=false;
-	}
+		res.render('login.ejs',{
+			Meldung: "Melden sie sich zuerst an.",
+		});
+		}
+
+		console.log('Kunde.istEingelogt:'+kunde.istEingelogt);	
+});
+
+//Die app.get wird abgearbeitet, wenn der Server angesurft wird
+app.get('/login',(req, res)=>{
+	console.log('kunde.istEingelogt:'+kunde.istEingelogt)
+	res.render('login.ejs',{
+		Meldung:"Bitte Benutzername und Kennwort eingeben."
+	});
 });
 
 app.get('/',(req, res)=>{
@@ -164,6 +161,7 @@ app.get('/',(req, res)=>{
 		});
 	}
 });
+
 //wenn im Browser die Adresse.../ABG aufgerufen wird, wird der Server aufgefordert,
 //die angefrgte Seite an den Browser zurück zu geben
 //der Server arbeit dazu die Funktionh app.get('AGB')... ab.
@@ -199,10 +197,11 @@ app.get('/Postfach',(req, res)=>{
 });
 
 app.get('/Profil',(req, res)=>{
+
 	if(kunde.istEigelogt){
 		res.render('Profil.ejs',{});
 		Meldung:"",
-		Email: kunde.Mail
+		Email; kunde.Mail
 	}else{
 		res.render('login.ejs',{
 			Meldung: "Melden sie sich zuerst an.",
@@ -216,6 +215,9 @@ app.post('/Profil',(req, res)=>{
 	let email= req.body.Email;
 	//Der Wert von email wird vom Browser entgegengenmmen, sobald der Kunde sein Profil ändern will.
 
+	
+
+	
 	//Die übergebende Adresse wird in dei Validate-Funktion übergeben und geprüft.
 if(validator.validate("email")){
 	console.log('Die E-Mail-Adresse ist gültig.');
@@ -244,6 +246,14 @@ app.get('/index',(req, res)=>{
 });
 
 app.get('/Kontenuebersicht',(req, res)=>{
+	
+	const IBANValidator = require('iban-validator-js');
+
+IBANValidator.isValid(''); // false
+IBANValidator.isValid('not-a-valid-IBAN'); // false
+IBANValidator.isValid('TR320010009999901234567890'); // true
+IBANValidator.isValid('BE68539007547034'); // true
+	
 	if(kunde.istEigelogt){
 		res.render('Kontenuebersicht.ejs',{});
 	}else{
@@ -297,14 +307,7 @@ app.get('/Kredit',(req, res)=>{
 
 
 
-//Die app.get wird abgearbeitet, wenn der Server angesurft wird
-app.get('/login',(req, res)=>{
-	kunde.istEingelogt=false;
-	console.log('kunde.istEingelogt'+kunde.istEingelogt)
-	res.render('login.ejs',{
-		Meldung:"Bitte Benutzername und Kennwort eingeben."
-	});
-});
+
 
 //Die app.post 
 

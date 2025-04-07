@@ -19,7 +19,17 @@
         <a href="logout"><button><i class="fa-solid fa-right-from-bracket"></i>Logout</button></a>
     </header>
 <main>
-    Hier kommt die Kontenübersicht hin.
+    <h1>Kontenübersicht</h1>
+    <p>Hier können Sie Ihre Kontenübersicht einsehen.</p>
+    <p>Bitte geben Sie Ihre gewündchte IBAN ein.</p>
+
+    <form action="/Kontenuebersicht" method="POST">
+        <label for="iban">IBAN:</label>
+        <input type="text" id="iban" name="iban" pattern="[A-Z]{2}[0-9]{2}[A-Z0-9]{1,30}" required>
+        <button type="submit">Konto anlegen</button>
+    </form>
+    <% if (typeof Meldung !== 'undefined') { %>
+        <p><%= Meldung %></p>
 </main>
 <footer>
         <h2>Hier können sie uns finden</h2>
