@@ -2,8 +2,13 @@
 //Zum installieren von modulen npm install(cookie/cookie-parser/-g nodemon/email-validator)
 
 //npm install iban-validator-js
+//npm install sqlite3
 
 const validator = require("email-validator");
+// SQLite-Modul importieren
+const sqlite3 = require('sqlite3').verbose(); // SQLite3 wird eingebunden
+// Zeile 8: Das Modul `sqlite3` wird importiert und mit `.verbose()` aktiviert, um detaillierte Debugging-Informationen zu erhalten
+
 //Die Bibliotek email-validator prüft ob eine E-Mail-Adresse gültig ist. 
 //die Anforderungen an einer Email sind exakt fesstgelegt im RFC 5322.
 
@@ -11,7 +16,44 @@ const validator = require("email-validator");
 //Die Funktion validate() gibt den Rückgabewrt true oder false zurück.
 validator.validate("test@email.com"); // true
 
+// Verbindung zur SQLite-Datenbank herstellen
+const db = new sqlite3.Database('./database.db', (err) => {
+    if (err) {
+        console.error(err.message);
+    } else {
+        console.log('Verbindung zur SQLite-Datenbank hergestellt.');
+		
+        // Tabelle "Kunden" erstellen
+        db.run(`
+            CREATE TABLE IF NOT EXISTS Kunden (
+                KundenNr INTEGER PRIMARY KEY AUTOINCREMENT,
+                Nachname TEXT NOT NULL,
+                Vorname TEXT NOT NULL,
+                Wohnort TEXT NOT NULL,
+                PLZ TEXT NOT NULL,
+                Straße TEXT NOT NULL,
+                Kennwort TEXT NOT NULL,
+                Benutzername TEXT NOT NULL UNIQUE
+            )
+        `, (err) => {
+            if (err) {
+                console.error('Fehler beim Erstellen der Tabelle:', err.message);
+            } else {
+                console.log('Tabelle "Kunden" erfolgreich erstellt oder existiert bereits.');
 
+                // Alle Kunden aus der Datenbank abrufen und in der Konsole ausgeben
+                db.all(`SELECT * FROM Kunden`, [], (err, rows) => {
+                    if (err) {
+                        console.error('Fehler beim Abrufen der Kunden:', err.message);
+                    } else {
+                        console.log('Alle Kunden in der Datenbank:');
+                        console.table(rows); // Gibt alle Kunden als Tabelle in der Konsole aus
+                    }
+                });
+            }
+        });
+    }
+});
 
 //Klassendefinition des Kunden
 class Kunde {
@@ -26,6 +68,8 @@ class Kunde {
 		this.Iban
 	}
 }
+
+//npm install sqlite3 um SQL zu installieren
 
 //Deklaration und instanziierung
 let kunde = new Kunde();
