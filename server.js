@@ -1,6 +1,7 @@
 
 //Zum installieren von modulen npm install(cookie/cookie-parser/-g nodemon/email-validator)
 
+
 //npm install iban-validator-js
 //npm install sqlite3
 
@@ -54,6 +55,7 @@ const db = new sqlite3.Database('./database.db', (err) => {
         });
     }
 });
+
 
 //Klassendefinition des Kunden
 class Kunde {
@@ -160,6 +162,57 @@ app.post('/login',(req, res)=>{
 	let meldung="";
 
 
+
+	//Die Datenbank wird abgefragt, ob der Benutzername und das Passwort des Kunden mit den eingegebenen Daten übereinstimmen.
+	//Mit SELECT wird die Datenbank abgefragt, ob es einen Kunden mit den angegebenen Anmeldedaten gibt.
+	//Der Wert wird an die Stelle des Fragezeichens an die Avfrage übergeben.
+	//* steht für alle Spalten der Tabelle Kunden.
+	//DieZeilen werden mit WHERE gefiltert, so dass nur die Zeilen zurückgegeben werden, die den angegebenen Benutzernamen und das Passwort enthalten.
+	db.get(`SELECT * FROM Kunden WHERE Benutzername = ?`, [benutzername,], (err, row) => {
+
+		// Wenn ein Fehler auftritt, wird eine Fehlermeldung in der Konsole ausgegeben und eine Fehlermeldung an den Browser gesendet.
+		//Wenn err ungleich null (bzw. leer) ist, dann ist ein Fehler aufgetreten.
+		if (err) {
+
+			//err ist nicht einfach ein String, sondern ein Objekt, mit der Eigenschaft message, die eine Fehlermeldung enthält.
+			console.error('Fehler beim Abrufen des Kunden:', err.message);
+			res.render('login.ejs', {
+				Meldung: "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut."
+			});
+			return;
+		}
+		if (row) {
+			// Wenn kein Kunde gefunden wurde, wird eine Fehlermeldung in der Konsole ausgegeben und eine Fehlermeldung an den Browser gesendet.
+			console.log('kein Kunde mit diesen Anmeldedaten gefunden.');
+			meldung = "Die Zugangsdaten wurden nicht korrekt eingegeben.";
+			res.render('login.ejs', {
+				Meldung: meldung
+			});
+			return;
+		}
+
+	//Wenn ein Kunde gefunden wurde, wird das Kundenobjekt mit den Daten des Kunden gefüllt.
+	kunde.Nachname = row.Nachname;
+	kunde.Vorname = row.Vorname;
+	kunde.Benutzername = row.Benutzername;
+	kunde.Kennwort = row.Kennwort;
+	kunde.Wohnort = row.Wohnort;
+	kunde.PLZ = row.PLZ;
+	kunde.Straße = row.Straße;
+	kunde.KundenNr = row.KundenNr;
+	//Die Eigenschaft istEingelogt wird auf true gesetzt, da der Kunde sich erfolgreich angemeldet hat.
+	kunde.istEingelogt = true;
+	//Die Meldung wird auf "Die Zugangsdaten wurden korrekt eingegeben." gesetzt.
+	meldung = "Die Zugangsdaten wurden korrekt eingegeben.";
+	//Die Meldung wird in der Konsole ausgegeben.
+	console.log('Die Zugangsdaten wurden korrekt eingegeben.');
+	//Die Meldung wird an den Browser zurückgegeben.
+	res.render('index.ejs', {
+		Meldung: meldung,
+		//Die E-Mail-Adresse des Kunden wird an den Browser zurückgegeben, damit sie im Profil angezeigt werden kann.
+		Email: kunde.Mail
+	});
+	});
 	//wenn der Benutzername und das Passwort des Kunden mit den eingegebenen Daten übereinstimmen, wird die Eigenschaft istEingelogt auf true gesetzt.
 	//Ansonsten wird die Eigenschaft istEingelogt auf false gesetzt.
 	if(kunde.Benutzername==benutzername && kunde.Passwort==passwort){
@@ -184,6 +237,7 @@ app.post('/login',(req, res)=>{
 			Meldung: "Melden sie sich zuerst an.",
 		});
 		}
+
 
 		console.log('Kunde.istEingelogt:'+kunde.istEingelogt);	
 });
