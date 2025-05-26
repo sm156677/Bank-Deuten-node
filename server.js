@@ -198,19 +198,12 @@ app.post('/login',(req, res)=>{
 	kunde.PLZ = row.PLZ;
 	kunde.Straße = row.Straße;
 	kunde.KundenNr = row.KundenNr;
-	//Die Eigenschaft istEingelogt wird auf true gesetzt, da der Kunde sich erfolgreich angemeldet hat.
-	kunde.istEingelogt = true;
-	//Die Meldung wird auf "Die Zugangsdaten wurden korrekt eingegeben." gesetzt.
-	meldung = "Die Zugangsdaten wurden korrekt eingegeben.";
-	//Die Meldung wird in der Konsole ausgegeben.
-	console.log('Die Zugangsdaten wurden korrekt eingegeben.');
-	//Die Meldung wird an den Browser zurückgegeben.
-	res.render('index.ejs', {
-		Meldung: meldung,
-	});
+	
+		console.log('Kunde gefunden:');
+
 	});
 
-	
+
 	//wenn der Benutzername und das Passwort des Kunden mit den eingegebenen Daten übereinstimmen, wird die Eigenschaft istEingelogt auf true gesetzt.
 	//Ansonsten wird die Eigenschaft istEingelogt auf false gesetzt.
 	if(kunde.Benutzername==benutzername && kunde.Passwort==passwort){
