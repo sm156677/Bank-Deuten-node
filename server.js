@@ -66,8 +66,6 @@ class Kunde {
 		this.Passwort
 		//istEingelogt ist ein boolean, diese kann nur true oder false sein.
 		this.istEingelogt
-		this.Mail
-		this.Iban
 	}
 }
 
