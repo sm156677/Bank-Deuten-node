@@ -207,10 +207,10 @@ app.post('/login',(req, res)=>{
 	//Die Meldung wird an den Browser zurückgegeben.
 	res.render('index.ejs', {
 		Meldung: meldung,
-		//Die E-Mail-Adresse des Kunden wird an den Browser zurückgegeben, damit sie im Profil angezeigt werden kann.
-		Email: kunde.Mail
 	});
 	});
+
+	
 	//wenn der Benutzername und das Passwort des Kunden mit den eingegebenen Daten übereinstimmen, wird die Eigenschaft istEingelogt auf true gesetzt.
 	//Ansonsten wird die Eigenschaft istEingelogt auf false gesetzt.
 	if(kunde.Benutzername==benutzername && kunde.Passwort==passwort){
