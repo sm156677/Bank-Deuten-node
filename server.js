@@ -159,7 +159,7 @@ app.post('/login',(req, res)=>{
 
 	let meldung="";
 
-
+/*
 
 	//Die Datenbank wird abgefragt, ob der Benutzername und das Passwort des Kunden mit den eingegebenen Daten übereinstimmen.
 	//Mit SELECT wird die Datenbank abgefragt, ob es einen Kunden mit den angegebenen Anmeldedaten gibt.
@@ -203,7 +203,9 @@ app.post('/login',(req, res)=>{
 
 	});
 
+	*/
 
+	
 	//wenn der Benutzername und das Passwort des Kunden mit den eingegebenen Daten übereinstimmen, wird die Eigenschaft istEingelogt auf true gesetzt.
 	//Ansonsten wird die Eigenschaft istEingelogt auf false gesetzt.
 	if(kunde.Benutzername==benutzername && kunde.Passwort==passwort){
